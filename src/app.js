@@ -1,10 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors"
-// import { saveData } from "./controllers/fund.controller.js";
 
 const app= express()
-// saveData()
 
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
