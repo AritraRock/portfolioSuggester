@@ -7,17 +7,11 @@ import jwt from "jsonwebtoken"
 
 const generateAccessAndRefreshToken = async(userId)=>{
     try{
-        console.log("Inside generateAccessAndRefreshToken func")
         const user = await User.findById(userId)
-        console.log(user)
         const accessToken=user.generateAccessToken()
-        console.log(accessToken)
         const refreshToken=user.generateRefreshToken()
-        console.log(refreshToken)
         user.refreshToken = refreshToken
         await user.save({validateBeforeSave: false})
-        
-        console.log("done")
         return {accessToken, refreshToken}
     } catch (error){
         throw new ApiError(500, "Something went wrong while generating refresh and access token")
@@ -89,7 +83,7 @@ const registerUser = asyncHandler( async (req,res)=>{
     if(!createdUser){
         throw new ApiError(500,"Something went wrong while registering the user")
     }
-
+    console.log("user registered successfully");
     return res.status(201).json(
         new ApiResponse(200, createdUser, "user registered successfully")
     )
@@ -133,7 +127,7 @@ const loginUser = asyncHandler( async (req,res)=>{
         secure: process.env.NODE_ENV === 'production', // Secure cookies only in production
         sameSite: 'lax',
     }
-
+    console.log("user logged in successfully");
     return res
     .status(200)
     .cookie("accessToken",accessToken, options)
@@ -177,7 +171,7 @@ const logoutUser = asyncHandler(async(req,res)=>{
         sameSite: 'lax',  // Define SameSite policy for cross-origin requests
         expires: new Date(0),  // Expire the cookie immediately
     };
-
+    console.log("user logged out successfully");
     // Clear the accessToken and refreshToken cookies by setting them with empty values
     return res
         .status(200)

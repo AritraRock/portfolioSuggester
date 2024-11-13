@@ -68,27 +68,4 @@ const fundSchema = new Schema(
     {timestamps:true}
 );
 
-// fundSchema.pre("save", async function (next) {
-//     // console.log()
-//     console.log("Running pre hook");
-//     // console.log(this.sector_Allocation)
-//     this.sector_Allocation = storeAll(this.sector_Allocation);
-//     console.log("Sec alloc stored");
-//     this.holdings = storeAll(this.holdings);
-//     next();
-// });
-
-// function storeAll(obj) {
-//     console.log("Here");
-//     console.log(obj);
-//     const newObj = {};
-//     for (const [key, value] of obj.entries()) {
-//         console.log("\n");
-//         console.log(key);
-//         const newKey = key.split('.').join(' ');
-//         newObj[newKey] = value;
-//     }
-//     return newObj;
-// }
-
 export const Fund = mongoose.model("Fund",fundSchema)
